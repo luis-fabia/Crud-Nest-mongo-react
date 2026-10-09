@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useEliminar } from '../hooks/useEliminar.ts';
 import { useGetallEstudents } from '../hooks/useGetallEstudents.ts'
+import { Edicion } from './Edicion.tsx'
 
 export function Estudiante() {
 
@@ -11,6 +13,8 @@ export function Estudiante() {
         ocultarEstudiantes } = useGetallEstudents()
 
     const { eliminar } = useEliminar()
+
+    const [idEditando, setidEditando] = useState(null)
 
     return (
         <>
@@ -57,7 +61,14 @@ export function Estudiante() {
                                     </td>
 
                                     <td className="acciones">
-                                        <button className="btn-editar">
+                                        <button className="btn-editar"
+                                            onClick={() => {
+                                                setidEditando(valor.id)
+                                                console.log(valor.id)
+                                            }
+                                            }
+
+                                        >
                                             Editar
                                         </button>
 
@@ -81,11 +92,35 @@ export function Estudiante() {
                                         </button>
                                     </td>
                                 </tr>
+
+
                             ))}
                         </tbody>
+
+
                     </table>
                 )}
             </div>
+
+
+            {idEditando && (
+                <Edicion
+                    id={idEditando}
+                    estudiante={estudiantes.find(e => e.id === idEditando)}
+                    onGuardar={(cambios) => {
+                        setEstudiantes((estudiantes) =>
+                            estudiantes.map((e) =>
+                                e.id === idEditando ? { ...e, ...cambios } : e
+                            )
+                        );
+                        setidEditando(null);
+                    }}
+                    onCancelar={() => setidEditando(null)}
+                />
+            )}
+
+
+
 
         </>
     );

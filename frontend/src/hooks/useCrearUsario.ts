@@ -23,6 +23,6 @@ export function useCrearUsuario() {
 
     }
 
-    return CrearUsuario
+    return { CrearUsuario }
 
 }

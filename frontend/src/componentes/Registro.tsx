@@ -16,7 +16,7 @@ export function RegistroEstudiante() {
 
     const [error, setError] = useState("")
 
-    const creacion = useCrearUsuario()
+    const {CrearUsuario }= useCrearUsuario()
 
 
     const guardarReistros = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,64 +47,81 @@ export function RegistroEstudiante() {
             return
         }
 
-        await creacion(registro)
+        await CrearUsuario(registro)
+
+        
+        setRegistro({
+            nombre: "",
+            apellido: "",
+            edad: 0,
+            correo: "",
+            programa: ""
+        })
+
+
+
 
     }
 
     return (
         <>
             <div className="contenedor">
-            <h2>Registro de Estudiante</h2>
+                <h2>Registro de Estudiante</h2>
 
-            <form className="formulario" onSubmit={guardarReistros}>
-                <input
-                    type="text"
-                    placeholder="Nombre"
-                    onChange={(e) =>
-                        setRegistro({ ...registro, nombre: e.target.value })
-                    }
-                />
+                <form className="formulario" onSubmit={guardarReistros} >
+                    <input
+                        type="text"
+                        placeholder="Nombre"
+                        value={registro.nombre}
+                        onChange={(e) =>
+                            setRegistro({ ...registro, nombre: e.target.value })
+                        }
+                    />
 
-                <input
-                    type="text"
-                    placeholder="Apellido"
-                    onChange={(e) =>
-                        setRegistro({ ...registro, apellido: e.target.value })
-                    }
-                />
+                    <input
+                        type="text"
+                        placeholder="Apellido"
+                        value={registro.apellido}
+                        onChange={(e) =>
+                            setRegistro({ ...registro, apellido: e.target.value })
+                        }
+                    />
 
-                <input
-                    type="number"
-                    placeholder="Edad"
-                    onChange={(e) =>
-                        setRegistro({ ...registro, edad: Number(e.target.value) })
-                    }
-                />
+                    <input
+                        type="number"
+                        placeholder="Edad"
+                        value={registro.edad}
+                        onChange={(e) =>
+                            setRegistro({ ...registro, edad: Number(e.target.value) })
+                        }
+                    />
 
-                <input
-                    type="email"
-                    placeholder="Correo"
-                    onChange={(e) =>
-                        setRegistro({ ...registro, correo: e.target.value })
-                    }
-                />
+                    <input
+                        type="email"
+                        placeholder="Correo"
+                        value={registro.correo}
+                        onChange={(e) =>
+                            setRegistro({ ...registro, correo: e.target.value })
+                        }
+                    />
 
-                <input
-                    type="text"
-                    placeholder="Programa"
-                    onChange={(e) =>
-                        setRegistro({ ...registro, programa: e.target.value })
-                    }
-                />
+                    <input
+                        type="text"
+                        placeholder="Programa"
+                        value={registro.programa}
+                        onChange={(e) =>
+                            setRegistro({ ...registro, programa: e.target.value })
+                        }
+                    />
 
-                <button className="btn-guardar" type="submit">
-                    Guardar
-                </button>
-            </form>
+                    <button className="btn-guardar" type="submit">
+                        Guardar
+                    </button>
+                </form>
 
-            {error && <p className="mensaje-error">{error}</p>}
-        </div>
-    
+                {error && <p className="mensaje-error">{error}</p>}
+            </div>
+
 
         </>
     );
