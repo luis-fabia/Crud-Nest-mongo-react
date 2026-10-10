@@ -5,7 +5,7 @@ export function useEditar() {
 
         try {
             const request = await fetch(`http://localhost:3000/estudiantes/${id}`, {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
